@@ -1,4 +1,4 @@
-# Training Attendance Lakehouse — Medallion Pipeline with a Grounded RAG Layer
+# Lakehouse — Medallion Pipeline with a Grounded RAG Layer
 
 An end-to-end Databricks pipeline that ingests a deliberately messy training-attendance
 CSV, curates it through Bronze → Silver → Gold, emits a data-quality report suitable for
