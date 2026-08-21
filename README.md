@@ -247,10 +247,8 @@ measurements from this corpus show why.
    scores 0.642 — higher than two genuinely answerable questions at 0.519 and 0.514.
    Similarity measures topical relatedness, not answerability. The bands overlap, so no
    threshold separates them.
-2. **Vocabulary scope gate.** Check whether the query's content words appear anywhere in
-   the corpus. This catches exactly the case above: `exam` and `score` exist in no
-   document, so the question is refused regardless of how well it scores.
-3. **Structured-metadata composition.** Figures are read from metadata, never
+   
+2. **Structured-metadata composition.** Figures are read from metadata, never
    re-transcribed from prose by a model. A number cannot be garbled if no model ever
    reads it.
    
