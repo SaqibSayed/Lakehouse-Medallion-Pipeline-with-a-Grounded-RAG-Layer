@@ -225,16 +225,6 @@ the natural home for the whole chain: the DQ rules become `@dlt.expect` decorato
 metrics land in the event log automatically, and the hand-rolled aggregation in
 `dq_notebook.py` disappears.
 
-**Containerisation.** Little is needed on-platform: serverless compute and Model Serving
-handle packaging. The RAG layer is the exception — it currently pip-installs
-`sentence-transformers` at runtime and builds an in-memory FAISS index that dies with the
-cluster. Production shape: register the embedding model in MLflow, serve it behind a
-Model Serving endpoint (containerised by Databricks), and replace FAISS with a Databricks
-Vector Search **Delta Sync index** on `gold_training_records`, which re-embeds
-incrementally as the table changes. If the Q&A layer must run outside Databricks, the
-retrieval service goes in a Docker image with a pinned model version and reads the index
-over the SDK.
-
 **Latency and cost.**
 
 - Precompute embeddings; never embed the corpus per request. Only the query is embedded
@@ -247,8 +237,6 @@ over the SDK.
 - Cache repeated identical questions in the conversational layer — attendance data
   changes daily at most, so a short TTL cache removes most of the embedding and
   retrieval cost.
-- Route by question type: the deterministic composer answers superlatives and lookups
-  with no LLM call at all. Only genuinely open-ended questions reach a serving endpoint.
 
 **Reducing hallucination.** No single control is sufficient — this needs layers, and the
 measurements from this corpus show why.
