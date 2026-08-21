@@ -217,7 +217,7 @@ A GitHub Actions workflow runs `bundle validate` on every pull request and
 
 **Ingestion.** Today the CSV is read in full on each run. The first change is Auto Loader
 (`cloudFiles`) on the Volume, which tracks which files have already been processed and
-picks up only new arrivals — incremental with no code restructuring. If attendance starts
+picks up only new arrivals incremental with no code restructuring. If attendance starts
 arriving continuously from a booking system rather than as a nightly file, the same logic
 runs as a Structured Streaming job with `availableNow` triggers for batch economics or
 continuous mode for genuine low latency. Lakeflow Declarative Pipelines (formerly DLT) is
@@ -229,7 +229,7 @@ metrics land in the event log automatically, and the hand-rolled aggregation in
 
 - Precompute embeddings; never embed the corpus per request. Only the query is embedded
   at request time.
-- Job clusters, not all-purpose clusters, for scheduled work — they terminate on
+- Job clusters, not all-purpose clusters, for scheduled work they terminate on
   completion.
 - Serverless SQL warehouse with a short auto-stop for the BI and alert queries.
 - Photon for the aggregation stage; it pays for itself on shuffle-heavy `GROUP BY`.
@@ -238,7 +238,7 @@ metrics land in the event log automatically, and the hand-rolled aggregation in
   changes daily at most, so a short TTL cache removes most of the embedding and
   retrieval cost.
 
-**Reducing hallucination.** No single control is sufficient — this needs layers, and the
+**Reducing hallucination.** No single control is sufficient this needs layers, and the
 measurements from this corpus show why.
 
 1. **Retrieval confidence threshold.** Refuse when the top cosine score falls below
@@ -253,17 +253,5 @@ measurements from this corpus show why.
 3. **Structured-metadata composition.** Figures are read from metadata, never
    re-transcribed from prose by a model. A number cannot be garbled if no model ever
    reads it.
-4. **Constrained generation.** The LLM prompt restricts the model to the retrieved
-   context, mandates an exact refusal string when unsupported, and requires a Fileno
-   citation for every figure.
-5. **Mandatory citations.** Every answer carries the record reference behind it, so a
-   reviewer can verify the claim against the table in one query.
-6. **Permission-aware retrieval.** A Vector Search index is a Unity Catalog object and
-   inherits the source table's grants. A user without `SELECT` on the table cannot
-   retrieve its chunks — enforced by the platform, not by a prompt instruction.
-7. **Regression evaluation.** Keep a fixed set of answerable and unanswerable questions;
-   run it on every deploy with MLflow LLM-as-judge scoring for groundedness. Track
-   refusal rate over time — a sudden drop means retrieval has drifted and the guardrail
-   has gone quiet.
-
+   
 ---
