@@ -139,10 +139,6 @@ The aggregate tables use a **weighted** rate — `SUM(attended) / SUM(scheduled)
 Emits one row per rule — `rows_in`, `rows_evaluated`, `rows_passed`, `rows_failed`,
 `pass_rate` — appended to `workspace.default.dq_run_log`.
 
-Each rule declares `applicable` separately from `passes`. Without that split, a row whose
-day count failed to cast is counted as a reconciliation failure too, and the totals stop
-summing to anything explainable.
-
 ### `gold_rag_layer.py`
 
 Builds one document per attendance record, embeds with `all-MiniLM-L6-v2`, indexes in
