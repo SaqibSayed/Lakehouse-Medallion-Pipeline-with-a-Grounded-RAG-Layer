@@ -174,11 +174,6 @@ GROUP BY branch
 ORDER BY avg_attendance_rate ASC;
 ```
 
-The two disagree on this data. Abu Dhabi holds a 2-day course at 0% and a 6-day course at
-33%; weighting by course length moves that branch's figure noticeably. Worth one sentence
-in the write-up — knowing the two definitions diverge, and saying which you picked and
-why, is the actual point of the question.
-
 ### Q2. Deployment, scaling, and hallucination control
 
 **Deploy with Databricks Asset Bundles (DAB).** The whole project — notebooks, job
