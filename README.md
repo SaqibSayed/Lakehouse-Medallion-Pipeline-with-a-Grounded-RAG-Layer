@@ -2,8 +2,7 @@
 
 An end-to-end Databricks pipeline that ingests a deliberately messy training-attendance
 CSV, curates it through Bronze → Silver → Gold, emits a data-quality report suitable for
-monitoring, and serves a retrieval-augmented Q&A layer over the Gold table with an
-explicit refusal path for questions the data cannot answer.
+monitoring, and serves a retrieval-augmented Q&A layer over the Gold table.
 
 ---
 
