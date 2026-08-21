@@ -132,9 +132,7 @@ quality flags (`is_age_valid`, `dq_days_mismatch`) dropped and two features adde
 - `attendance_band` — High ≥ 0.90 / Medium 0.60–0.89 / Low < 0.60, with an explicit
   `Unknown` bucket so NULL-rate rows stay visible in a `GROUP BY` instead of vanishing
 
-The aggregate tables use a **weighted** rate — `SUM(attended) / SUM(scheduled)` — not the
-mean of per-row rates, so a 2-day course does not swing the average as hard as a 10-day
-one. The two definitions differ materially on this dataset; see the SQL answer below.
+The aggregate tables use a **weighted** rate — `SUM(attended) / SUM(scheduled)`.
 
 ### `dq_notebook.py`
 
