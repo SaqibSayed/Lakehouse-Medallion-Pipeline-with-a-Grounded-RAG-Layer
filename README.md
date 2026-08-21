@@ -164,23 +164,7 @@ completion.
 
 ### Q1. Average attendance rate per branch, lowest to highest
 
-Two defensible readings. Submit whichever matches how the programme defines the metric,
-and say which you chose.
-
-**Weighted (recommended)** — total attended days over total scheduled days. Consistent
-with the Gold aggregate definition:
-
-```sql
-SELECT
-  branch,
-  ROUND(SUM(days_attended) / SUM(number_of_days), 4) AS avg_attendance_rate,
-  COUNT(*)                                           AS num_records
-FROM gold_training_records
-GROUP BY branch
-ORDER BY avg_attendance_rate ASC;
-```
-
-Or read it straight from the pre-aggregated table, which computes the same figure:
+Reading it straight from the pre-aggregated table, which computes the same figure:
 
 ```sql
 SELECT branch, attendance_rate, num_records
