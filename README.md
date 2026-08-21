@@ -137,8 +137,7 @@ The aggregate tables use a **weighted** rate — `SUM(attended) / SUM(scheduled)
 ### `dq_notebook.py`
 
 Emits one row per rule — `rows_in`, `rows_evaluated`, `rows_passed`, `rows_failed`,
-`pass_rate` — appended to `workspace.default.dq_run_log` so the table accumulates as a
-time series a SQL alert can sit on.
+`pass_rate` — appended to `workspace.default.dq_run_log`.
 
 Each rule declares `applicable` separately from `passes`. Without that split, a row whose
 day count failed to cast is counted as a reconciliation failure too, and the totals stop
