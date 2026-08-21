@@ -142,9 +142,7 @@ Emits one row per rule — `rows_in`, `rows_evaluated`, `rows_passed`, `rows_fai
 ### `gold_rag_layer.py`
 
 Builds one document per attendance record, embeds with `all-MiniLM-L6-v2`, indexes in
-FAISS (normalised vectors + `IndexFlatIP` = cosine similarity), and answers questions
-with a deterministic composer that reads figures from structured metadata rather than
-re-reading them out of the embedded prose.
+FAISS (normalised vectors + `IndexFlatIP` = cosine similarity), and answers questions.
 
 The applicant name is deliberately excluded from the document text. `Fileno` is the
 record reference, so a name cannot surface through a similarity match or an LLM
