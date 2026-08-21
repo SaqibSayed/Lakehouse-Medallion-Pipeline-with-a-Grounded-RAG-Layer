@@ -294,25 +294,3 @@ measurements from this corpus show why.
    has gone quiet.
 
 ---
-
-## Known issues to check before submitting
-
-- **Governance DDL targets schemas that do not exist.** `dq_notebook.py` writes
-  `workspace.silver.silver_training` in the column-mask and ownership cells, but the
-  pipeline creates tables unqualified in `workspace.default`. Either move the tables into
-  per-layer schemas or repoint that DDL. It is printed rather than executed for the
-  `GRANT` block, but the `%sql` column-mask cell will run and fail.
-- **Group names are illustrative.** `data_engineers`, `data_analysts`, `business_users`,
-  and `pii_readers` must exist in your workspace or the `GRANT` statements error. Free
-  Edition has no account console, so create groups in workspace settings or skip these
-  cells and submit the DDL as a design artefact.
-- **Two sample questions are mislabelled.** In `gold_rag_layer.py`, "What courses are
-  running in sharjah?" and "Average age of participants?" sit under the *below threshold*
-  heading, but Sharjah is a branch in the data and `age_clean` is a column — both are
-  answerable and will likely score above 0.49. Either move them to the answerable group
-  or replace them with questions asking for attributes the corpus genuinely lacks.
-- **Threshold value and comments disagree.** `SIMILARITY_THRESHOLD` is `0.49`; several
-  comments still say `0.45`. Reconcile before submission.
-- **`attendance_rate` is computed twice.** `gold_training_records` stores it, but
-  `build_documents()` recalculates it from the day counts. Reading `row["attendance_rate"]`
-  instead would guarantee the RAG answers match the table exactly.
